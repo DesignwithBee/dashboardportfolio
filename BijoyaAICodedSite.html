@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Bijoya Deb — Design Portfolio Dashboard</title>
+<style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: #f4f7f9;
+            color: #2c3e50;
+        }
+        h1, h2 {
+            color: #1a1a1a;
+        }
+        .metrics {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .metric {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            text-align: left;
+        }
+        .kanban {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .column {
+            flex: 1;
+            min-width: 280px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            padding: 16px;
+        }
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: #fcfcfc;
+        }
+        .tags {
+            font-size: 12px;
+            margin-top: 4px;
+            color: #777;
+        }
+        .card a {
+            text-decoration: none;
+            color: #007acc;
+        }
+        .chart, .case-studies {
+            margin-top: 40px;
+            text-align: left;
+        }
+        .case-study {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: left;
+        }
+        .case-study h3 {
+            margin-top: 0;
+        }
+        .case-study .tags {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+<style>
+.filter-buttons {
+    text-align: left;
+    margin: 20px 0 40px;
+}
+.filter-buttons button {
+    background: #e3e3e3;
+    border: none;
+    padding: 10px 14px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.filter-buttons button:hover {
+    background: #0073e6;
+    color: white;
+}
+.case-studies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 24px;
+}
+.case-study {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    padding: 20px;
+    width: 340px;
+    flex: 1 1 300px;
+    box-sizing: border-box;
+}
+</style>
+<style>
+.filter-search {
+    text-align: left;
+    margin-top: 30px;
+}
+.filter-search input {
+    padding: 10px;
+    font-size: 15px;
+    width: 60%;
+    max-width: 400px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+.emoji-tags {
+    text-align: left;
+    margin: 20px 0 30px;
+}
+.emoji-tags button {
+    background: #f0f0f0;
+    border: none;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.emoji-tags button:hover {
+    background: #0073e6;
+    color: white;
+}
+</style>
+<style>
+.tile-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+}
+.tile {
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 10px 12px;
+    width: 120px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.tile-blue { background: #d0e1f9; color: #000; }
+.tile-green { background: #d0f0d4; color: #000; }
+.tile-peach { background: #ffe0b2; color: #000; }
+.tile-purple { background: #e3e0f8; color: #000; }
+
+.tile strong {
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    color: #333;
+    margin-top: 6px;
+}
+.tile span.value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #111;
+}
+body.dark-mode .tile-blue { background: #2a3b5d; color: #fff; }
+body.dark-mode .tile-green { background: #2e5e32; color: #fff; }
+body.dark-mode .tile-peach { background: #a86930; color: #fff; }
+body.dark-mode .tile-purple { background: #514075; color: #fff; }
+
+body.dark-mode .tile strong {
+    color: #dddddd;
+}
+body.dark-mode .tile span.value {
+    color: #ffffff;
+}
+</style>
+<style>
+body.dark-mode {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode p,
+body.dark-mode a,
+body.dark-mode li,
+body.dark-mode .tags {
+    color: #ffffff !important;
+}
+body.dark-mode input,
+body.dark-mode button {
+    background-color: #333 !important;
+    color: #fff !important;
+    border-color: #444 !important;
+}
+body.dark-mode .column,
+body.dark-mode .card,
+body.dark-mode .case-study,
+body.dark-mode .metric {
+    background-color: #1e1e1e !important;
+    border-color: #3a3a3a !important;
+}
+</style>
+<style>
+.badge.mymanagement-portal { background-color: #d0e1f9; color: #000; padding: 6px 10px; border-radius: 6px; margin: 4px 4px 8px 0; display: inline-block; font-size: 14px; }
+body.dark-mode .badge.mymanagement-portal { background-color: #0a284b; color: #fff; }
+.badge.mindset4growth { background-color: #d0f0d4; color: #000; padding: 6px 10px; border-radius: 6px; margin: 4px 4px 8px 0; display: inline-block; font-size: 14px; }
+body.dark-mode .badge.mindset4growth { background-color: #2e7d32; color: #fff; }
+.badge.treeapp { background-color: #cdeacd; color: #000; padding: 6px 10px; border-radius: 6px; margin: 4px 4px 8px 0; display: inline-block; font-size: 14px; }
+body.dark-mode .badge.treeapp { background-color: #1b5e20; color: #fff; }
+.badge.dlsph-intranet { background-color: #e3e4fa; color: #000; padding: 6px 10px; border-radius: 6px; margin: 4px 4px 8px 0; display: inline-block; font-size: 14px; }
+body.dark-mode .badge.dlsph-intranet { background-color: #5c6bc0; color: #fff; }
+.badge.gga-partners { background-color: #e8d5c0; color: #000; padding: 6px 10px; border-radius: 6px; margin: 4px 4px 8px 0; display: inline-block; font-size: 14px; }
+body.dark-mode .badge.gga-partners { background-color: #6d4c41; color: #fff; }
+.badge.wearegoldenhour { background-color: #f8d7dd; color: #000; padding: 6px 10px; border-radius: 6px; margin: 4px 4px 8px 0; display: inline-block; font-size: 14px; }
+body.dark-mode .badge.wearegoldenhour { background-color: #d81b60; color: #fff; }
+.badge.custom-lofi-animation { background-color: #e6d8f2; color: #000; padding: 6px 10px; border-radius: 6px; margin: 4px 4px 8px 0; display: inline-block; font-size: 14px; }
+body.dark-mode .badge.custom-lofi-animation { background-color: #4527a0; color: #fff; }
+.badge.remote-branding--utsc { background-color: #c2f0f2; color: #000; padding: 6px 10px; border-radius: 6px; margin: 4px 4px 8px 0; display: inline-block; font-size: 14px; }
+body.dark-mode .badge.remote-branding--utsc { background-color: #00838f; color: #fff; }
+.badge.deca-u { background-color: #d1d9ff; color: #000; padding: 6px 10px; border-radius: 6px; margin: 4px 4px 8px 0; display: inline-block; font-size: 14px; }
+body.dark-mode .badge.deca-u { background-color: #3f51b5; color: #fff; }
+</style>
+<style>
+.kanban-column {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 16px;
+}
+body.dark-mode .kanban-column {
+    background-color: #1e1e1e !important;
+    color: #ffffff;
+    border-color: #3a3a3a;
+}
+</style>
+<style>
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+.kanban-column {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+body.dark-mode .kanban-column {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+</style>
+
+
+<style>
+.tool-icons {
+    position: absolute;
+    top: 1px;
+    right: 5px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.tool-icons img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+.kanban-column {
+    position: relative;
+}
+</style>
+</head>
+<body>
+<div style="text-align: left;">
+<button id="modeToggle" onclick="toggleDarkMode()">🌓 Toggle Dark Mode</button>
+</div>
+<h1>Bijoya Deb — UX &amp; Visual Design Portfolio</h1>
+<div class="metrics">
+<div class="metric"><h2>8+</h2><p>Total Projects</p></div>
+<div class="metric"><h2>4</h2><p>UX/UI Projects</p></div>
+<div class="metric"><h2>3</h2><p>Graphic Design</p></div>
+<div class="metric"><h2>2</h2><p>Marketing/Comms</p></div>
+</div>
+<h2>Kanban View</h2>
+<div class="kanban"><div class="column">
+<h3>🌟 Featured</h3>
+<div class="card">
+<strong>📊 GGA Partners</strong><br/>
+            McKinsey-style data visuals<br/>
+<div class="tags">#dataviz #consulting</div>
+<p>Built consulting-style data visuals to elevate stakeholder decision-making, delivered under tight executive deadlines.</p><div class="tile-group"><div class="tile tile-blue"><span class="value">11</span><strong>Visuals Created</strong></div><div class="tile tile-green"><span class="value">130</span><strong>Stakeholder Clarity (%)</strong></div><div class="tile tile-peach"><span class="value">21</span><strong>Turnaround (days)</strong></div></div></div>
+<div class="card">
+<strong>📘 Mindset4Growth</strong><br/>
+            Ebooks + coaching launch kits<br/>
+<div class="tags">#contentdesign #uxwriting</div>
+<p>Crafted branded coaching assets and UX-centered ebook flows to support digital learning experiences.</p><div class="tile-group"><div class="tile tile-purple"><span class="value">5</span><strong>Ebooks</strong></div><div class="tile tile-blue"><span class="value">3</span><strong>Social Kits</strong></div><div class="tile tile-green"><span class="value">30</span><strong>Launch Time (days)</strong></div></div></div>
+<div class="card">
+<strong>🎨 WeAreGoldenHour</strong><br/>
+            Brand merch stickers<br/>
+<div class="tags">#graphicdesign #branding</div>
+<p>Created expressive, body-positive merchandise visuals tailored to this fashion-forward plus-size label.</p><div class="tile-group"><div class="tile tile-peach"><span class="value">2</span><strong>Sticker Packs</strong></div><div class="tile tile-purple"><span class="value">2</span><strong>Sellouts</strong></div><div class="tile tile-blue"><span class="value">5</span><strong>Followers (K)</strong></div></div></div>
+</div><div class="column">
+<h3>✅ Complete</h3>
+<div class="card">
+<strong>🏫 MyManagement Portal</strong><br/>
+            Student UX platform<br/>
+<div class="tags">#uxdesign #education</div>
+<p>Co-led portal strategy and interface design, improving navigation for 2,000+ students with scalable structure.</p><div class="tile-group"><div class="tile tile-green"><span class="value">2000</span><strong>Students Served</strong></div><div class="tile tile-peach"><span class="value">7</span><strong>UX Features</strong></div><div class="tile tile-purple"><span class="value">3</span><strong>Team Size</strong></div></div></div>
+<div class="card">
+<strong>💼 DLSPH Intranet</strong><br/>
+            SharePoint IA/UX templates<br/>
+<div class="tags">#ia #enterprisedesign</div>
+<p>Architected a SharePoint ecosystem used across 50+ public health teams, optimizing content governance and UX.</p><div class="tile-group"><div class="tile tile-blue"><span class="value">30</span><strong>Sites Designed</strong></div><div class="tile tile-green"><span class="value">50</span><strong>Offices Reused</strong></div><div class="tile tile-peach"><span class="value">12</span><strong>Dev Time Saved (months)</strong></div></div></div>
+<div class="card">
+<strong>📢 Remote Branding — UTSC</strong><br/>
+            Infographics &amp; digital collateral<br/>
+<div class="tags">#visualcomms #studentengagement</div>
+</div>
+<div class="card">
+<strong>🎞️ Custom Lofi Animation</strong><br/>
+            Illustrated narrative loop<br/>
+<div class="tags">#motiondesign #illustration</div>
+<p>Illustrated and animated a custom looped scene capturing nostalgic calm, rooted in ambient narrative aesthetics.</p><div class="tile-group"><div class="tile tile-purple"><span class="value">1</span><strong>Loops Delivered</strong></div><div class="tile tile-blue"><span class="value">200</span><strong>Client Rating (%)</strong></div></div></div>
+</div><div class="column">
+<h3>🔄 Currently Working On</h3>
+<div class="card">
+<strong>🌱 TreeApp</strong><br/>
+            Icon system + UI clarity<br/>
+<div class="tags">#uxdesign #appdesign</div>
+<p>Designing a simplified icon system and reworking UI touchpoints to improve clarity across TreeApp’s eco-focused platform.</p><div class="tile-group"><div class="tile tile-peach"><span class="value">30</span><strong>Icons Designed</strong></div><div class="tile tile-purple"><span class="value">500</span><strong>Users Impacted (K)</strong></div><div class="tile tile-blue"><span class="value">4</span><strong>Team Size</strong></div></div></div>
+</div></div>
+<h2>📚 Case Study Highlights</h2><div class="filter-search" style="text-align: left; margin-top: 30px;">
+<input id="searchInput" onkeyup="searchProjects()" placeholder="Search case studies..." type="text"/>
+</div>
+<div class="emoji-tags" style="text-align: left; margin: 20px 0 30px;">
+<button onclick="filterProjects('all')">🌐 All</button>
+<button onclick="filterProjects('uxdesign')">🧠 #uxdesign</button>
+<button onclick="filterProjects('uidesign')">📱 #uidesign</button>
+<button onclick="filterProjects('branding')">🏷️ #branding</button>
+<button onclick="filterProjects('icondesign')">🔣 #icondesign</button>
+<button onclick="filterProjects('accessibility')">♿ #accessibility</button>
+<button onclick="filterProjects('datavisualization')">📊 #datavisualization</button>
+<button onclick="filterProjects('motiondesign')">🎞️ #motiondesign</button>
+<button onclick="filterProjects('contentdesign')">📝 #contentdesign</button>
+<button onclick="filterProjects('informationarchitecture')">📁 #informationarchitecture</button>
+<button onclick="filterProjects('leadership')">👑 #leadership</button>
+<button onclick="filterProjects('eventdesign')">🎤 #eventdesign</button>
+<button onclick="filterProjects('visualdesign')">🎨 #visualdesign</button>
+<button onclick="filterProjects('illustration')">🖌️ #illustration</button>
+<button onclick="filterProjects('edtech')">📚 #edtech</button>
+<button onclick="filterProjects('consulting')">🧾 #consulting</button>
+</div>
+<div class="case-studies"><div class="case-study"><h3>📊 GGA Partners — Strategic Data Visuals</h2><p>Crafted 11 executive-ready data visualizations for a strategy report. Inspired by McKinsey and Bain formats, the assets were optimized for clarity and alignment with stakeholder communication goals. Delivered both SVG and PNG sets, supporting fast iteration cycles and consistent branding.</p><div class="tags">#datavisualization #executivedesign #consulting</div></div><div class="case-study"><h3>📱 MyManagement Portal — Student Experience Redesign</h3><p>Overhauled the Department of Management’s student portal at UTSC. Led wireframe development, content grouping, iconography, and feedback synthesis from 2,000+ students. Final system increased access to academic, career, and wellness resources. Recognized for accessibility improvements.</p><div class="tags">#uxdesign #accessibility #highered</div></div><div class="case-study"><h3>📘 Mindset4Growth — Learning Experience Design</h3><p>Developed 5 interactive ebooks and modular content kits for a coaching startup’s brand launch. Designed for readability, mobile-compatibility, and clear progression. Each deliverable aligned with coaching pillars and supported user retention goals.</p><div class="tags">#contentdesign #uxwriting #edtech</div></div><div class="case-study"><h3>🏷️ WeAreGoldenHour — Visual Identity for Merch Drops</h3><p>Created visually inclusive sticker packs for a plus-size fashion brand. Designs reflected body positivity and expressive fashion aesthetics. Two drops sold out, transitioning the collab into a permanent merch series.</p><div class="tags">#branding #graphicdesign #inclusivevisuals</div></div><div class="case-study"><h3>💼 DLSPH — Information Architecture &amp; Governance</h3><p>Led the UX and IA overhaul of over 30 SharePoint-based intranet and extranet sites. Delivered template systems, icon libraries, and a training deck reused by 50+ UofT public health offices. Project saved over 12 months of development time and improved content ownership.</p><div class="tags">#informationarchitecture #sharepoint #scalabledesign</div></div><div class="case-study"><h3>🎞️ Custom Lofi Loop — Animated Narrative Artwork</h3><p>Commissioned to design a personalized animated artwork inspired by the 'Lofi Girl' aesthetic. Merged digital painting with ambient rhythm loops to create an emotionally evocative visual. Final delivery exceeded expectations, earning double payment.</p><div class="tags">#motiondesign #illustration #personalization</div></div><div class="case-study"><h3>🤝 DECA U — VP of Marketing &amp; Events</h3><p>Served as Vice President for the University of Toronto DECA chapter. Led digital strategy, social content, and event design for competitions and career events. Produced branded materials, coordinated with student services, and helped grow chapter engagement across multiple campuses. Promoted leadership, brand consistency, and student participation.</p><div class="tags">#leadership #eventdesign #studentorg</div></div></div>
+<h1>🧰 Skills and Tools Used</h1><div class="kanban-board">
+<div class="kanban-column"><div class="tool-icons"><img alt="Figma" src="Figma.png"/><img alt="SharePoint" src="SharePointIcon.png"/><img alt="Miro" src="MiroIcon.png"/></div><h3>🧭 UX Strategy</h2><span class="badge mymanagement-portal">MyManagement Portal</span><span class="badge dlsph-intranet">DLSPH Intranet</span><span class="badge mindset4growth">Mindset4Growth</span></div><div class="kanban-column"><div class="tool-icons"><img alt="Figma" src="Figma.png"/></div><h2>📐 Wireframing</h2><span class="badge mymanagement-portal">MyManagement Portal</span><span class="badge mindset4growth">Mindset4Growth</span></div><div class="kanban-column"><div class="tool-icons"><img alt="Figma" src="Figma.png"/><img alt="Photoshop" src="AdobePhotoshop.png"/><img alt="Illustrator" src="AdobeIlustratorIcon.png"/></div><h2>🎨 Visual Design</h2><span class="badge treeapp">TreeApp</span><span class="badge wearegoldenhour">WeAreGoldenHour</span><span class="badge custom-lofi-animation">Custom Lofi Animation</span></div><div class="kanban-column"><div class="tool-icons"><img alt="Illustrator" src="AdobeIlustratorIcon.png"/></div><h2>🔣 Icon Design</h2><span class="badge treeapp">TreeApp</span></div><div class="kanban-column"><div class="tool-icons"><img alt="Figma" src="Figma.png"/><img alt="Illustrator" src="AdobeIlustratorIcon.png"/></div><h2>📊 Data Visualization</h2><span class="badge gga-partners">GGA Partners</span></div><div class="kanban-column"><div class="tool-icons"><img alt="InDesign" src="Adobe_InDesignIcon.png"/><img alt="PowerPoint" src="PowerpointIcon.png"/></div><h2>📝 Content Design</h2><span class="badge mindset4growth">Mindset4Growth</span><span class="badge remote-branding--utsc">Remote Branding — UTSC</span></div><div class="kanban-column"><div class="tool-icons"><img alt="Illustrator" src="AdobeIlustratorIcon.png"/><img alt="Photoshop" src="AdobePhotoshop.png"/></div><h2>🏷️ Branding</h2><span class="badge wearegoldenhour">WeAreGoldenHour</span><span class="badge remote-branding--utsc">Remote Branding — UTSC</span></div><div class="kanban-column"><div class="tool-icons"><img alt="After Effects" src="AdobeAfterEffects.png"/></div><h2>🎞️ Motion Design</h2><span class="badge custom-lofi-animation">Custom Lofi Animation</span></div><div class="kanban-column"><div class="tool-icons"><img alt="SharePoint" src="SharePointIcon.png"/><img alt="Miro" src="MiroIcon.png"/></div><h2>📁 Information Architecture</h2><span class="badge dlsph-intranet">DLSPH Intranet</span></div><div class="kanban-column"><div class="tool-icons"><img alt="Figma" src="Figma.png"/></div><h2>♿ Accessibility Design</h2><span class="badge mymanagement-portal">MyManagement Portal</span><span class="badge dlsph-intranet">DLSPH Intranet</span></div>
+</div>
+<script>
+function filterProjects(tag) {
+    const cards = document.querySelectorAll('.case-study');
+    cards.forEach(card => {
+        if (tag === 'all' || card.innerText.toLowerCase().includes(tag.toLowerCase())) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+<script>
+function searchProjects() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.case-study');
+    cards.forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(input) ? 'block' : 'none';
+    });
+}
+</script>
+<script>
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+}
+</script>
+</body>
+</html>
