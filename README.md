@@ -1,3 +1,3 @@
-# dashboardportfolio
-Bee's Work Experience Dashboard:
+# designwithbee
+Work Experience Dashboard:
 https://designwithbee.github.io/dashboardportfolio/
